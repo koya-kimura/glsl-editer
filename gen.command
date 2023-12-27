@@ -1,4 +1,11 @@
-now=`date +%Y-%m-%d-%H-%M-%S`
+now=$(date +%Y-%m-%d-%H-%M-%S)
 
-cp templete/basic.glsl src/"$now".glsl
-code -r src/"$now".glsl
+md_file_path="memo/index.md"
+content_file_path="src/${now}.glsl"
+
+cp templete/basic.glsl src/"${now}".glsl
+code -r src/"${now}".glsl
+
+echo -e "\n - [${now}.glsl](../${content_file_path})" >> "${md_file_path}"
+
+echo "Successfully appended to ${md_file_path}"
