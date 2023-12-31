@@ -116,104 +116,52 @@ float easeInOutBack(float x){
     return x<.5?(pow(2.*x,2.)*((c2+1.)*2.*x-c2))/2.:(pow(2.*x-2.,2.)*((c2+1.)*(x*2.-2.)+c2)+2.)/2.;
 }
 
-float easeFunc(float x,int i){
-    switch(i){
-        case 0:
-        return easeInCirc(x);
-        break;
-        case 1:
-        return easeInCubic(x);
-        break;
-        case 2:
-        return easeInExpo(x);
-        break;
-        case 3:
-        return easeInOutBack(x);
-        break;
-        case 4:
-        return easeInOutBack(x);
-        break;
-        case 5:
-        return easeInOutCirc(x);
-        break;
-        case 6:
-        return easeInOutCubic(x);
-        break;
-        case 7:
-        return easeInOutExpo(x);
-        break;
-        case 8:
-        return easeInOutQuad(x);
-        break;
-        case 9:
-        return easeInOutQuart(x);
-        break;
-        case 10:
-        return easeInOutQuint(x);
-        break;
-        case 11:
-        return easeInOutSine(x);
-        break;
-        case 12:
-        return easeInQuad(x);
-        break;
-        case 13:
-        return easeInQuart(x);
-        break;
-        case 14:
-        return easeInQuint(x);
-        break;
-        case 15:
-        return easeInSine(x);
-        break;
-        case 16:
-        return easeOutBack(x);
-        break;
-        case 17:
-        return easeOutCirc(x);
-        break;
-        case 18:
-        return easeOutCubic(x);
-        break;
-        case 19:
-        return easeOutExpo(x);
-        break;
-        case 20:
-        return easeOutQuad(x);
-        break;
-        case 21:
-        return easeOutQuart(x);
-        break;
-        case 22:
-        return easeOutQuint(x);
-        break;
-        case 23:
-        return easeOutSine(x);
-        break;
-        default:
-        return x;
-    }
+// イージング関数を配列にまとめる
+float easeFunctions(float x,int i){
+    float functions[24];
+    functions[0]=easeInCirc(x);
+    functions[1]=easeInCubic(x);
+    functions[2]=easeInExpo(x);
+    functions[3]=easeInOutBack(x);
+    functions[4]=easeInOutBack(x);
+    functions[5]=easeInOutCirc(x);
+    functions[6]=easeInOutCubic(x);
+    functions[7]=easeInOutExpo(x);
+    functions[8]=easeInOutQuad(x);
+    functions[9]=easeInOutQuart(x);
+    functions[10]=easeInOutQuint(x);
+    functions[11]=easeInOutSine(x);
+    functions[12]=easeInQuad(x);
+    functions[13]=easeInQuart(x);
+    functions[14]=easeInQuint(x);
+    functions[15]=easeInSine(x);
+    functions[16]=easeOutBack(x);
+    functions[17]=easeOutCirc(x);
+    functions[18]=easeOutCubic(x);
+    functions[19]=easeOutExpo(x);
+    functions[20]=easeOutQuad(x);
+    functions[21]=easeOutQuart(x);
+    functions[22]=easeOutQuint(x);
+    functions[23]=easeOutSine(x);
+
+    return i>=0&&i<24?functions[i]:x;
 }
 
-//---------------------
-
-void mainImage(out vec4 fragColor,in vec2 fragCoord)
-{
+void mainImage(out vec4 fragColor,in vec2 fragCoord){
     vec2 uv=fragCoord/iResolution.xy;
-    
     vec3 col=vec3(0.);
 
-    float n = 23.;
+    float n=23.;
     for(float i=0.;i<n;i++){
         float t=fract(iTime/4.);
-        vec2 p=vec2(easeFunc(t, int(i)),(i+.5)/n);
-        
+        vec2 p=vec2(easeFunctions(t,int(i)),(i+.5)/n);
+
         float l=length(uv-p);
-        
+
         if(l<.02){
             col=vec3(1.);
         }
     }
-    
+
     fragColor=vec4(col,1.);
 }
