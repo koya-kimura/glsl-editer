@@ -24,12 +24,16 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord)
 {
     vec2 uv=fragCoord/iResolution.xy;
 
-    float r = .3;
-    vec2 p = vec2(.5+r*cos(iTime), .5+r*sin(iTime));
+    float r = .7;
+    vec2 p = vec2(.5+r*pow(sin(iTime*1.3), 3.), .5+r*pow(sin(iTime*1.7), 3.));
 
     float l = length(p - uv);
 
-    vec3 col= vec3(pow(1.-l, 2.));
+    float s = pow(sin(iTime/2.), 2.)*1.2;
+
+    float v = pow(s-l,3.);
+
+    vec3 col= vec3(v, pow(v,2.), 0.);
 
     fragColor=vec4(col,1.);
 }
