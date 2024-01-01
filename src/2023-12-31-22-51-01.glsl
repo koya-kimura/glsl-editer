@@ -156,12 +156,19 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord){
     uv-=vec2(.5);
     uv.y*=iResolution.y/iResolution.x;
 
+    uv = abs(uv);
+    uv=abs(uv-.5);
+    uv=abs(uv-.5);
+    uv = abs(uv-.5);
+    uv=abs(uv-.5);
+    uv=abs(uv-.5);
+
     vec3 cameraPosition=vec3(0.,0.,10.);
     float screenZ=4.;
 
     vec3 lightDirection=normalize(vec3(sin(iTime),cos(iTime),cos(iTime)));
     vec3 rayDirection=normalize(vec3(uv,screenZ)-cameraPosition);
-    vec3 col=vec3(0.);
+    vec3 col=vec3(0.2);
     float depth=0.;
 
 
