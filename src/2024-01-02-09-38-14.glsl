@@ -116,14 +116,44 @@ float easeInOutBack(float x){
     return x<.5?(pow(2.*x,2.)*((c2+1.)*2.*x-c2))/2.:(pow(2.*x-2.,2.)*((c2+1.)*(x*2.-2.)+c2)+2.)/2.;
 }
 
+vec3 edge(vec3 col){
+    float gray=length(col);
+    return vec3(step(.09,fwidth(gray)));
+}
+
+vec2 mirror(vec2 uv){
+    return abs(uv-.5);
+}
+
+vec2 polarMod(vec2 uv, float n){
+    uv = xy2pol(uv);
+    float th = mod(uv.x, PI/n*2.);
+    th = min(th, PI/n*2.-th);
+    uv = uv.y*vec2(cos(th), sin(th));
+    return uv;
+}
+
+vec2 distortion(vec2 uv){
+    return uv * (1.-length(uv));
+}
+
 // -------------------------
 
 #iChannel0 "https://66.media.tumblr.com/tumblr_mcmeonhR1e1ridypxo1_500.jpg"
+#iChannel1" https://1.bp.blogspot.com/-7OzCCLysaWY/VCOJTY7fF5I/AAAAAAAAmvY/HqoY2F8aEqA/s800/eto_mark05_tatsu.png"
 
 void mainImage(out vec4 fragColor,in vec2 fragCoord)
 {
     vec2 uv=fragCoord.xy/iResolution.xy;
+
+    uv = uv-.5;
+
+    uv = distortion(uv);
+
+    // uv = polarMod(uv, 6.);
+
     vec4 col=texture2D(iChannel0,uv);
-    float gray=length(col.rgb);
-    fragColor=vec4(vec3(step(.09,fwidth(gray))),1.);
+    // col.rgb = edge(col.rgb);
+
+    fragColor= col;
 }
