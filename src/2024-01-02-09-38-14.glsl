@@ -148,7 +148,7 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord)
 
     uv = uv-.5;
 
-    uv = distortion(uv);
+    // uv = distortion(uv);
 
     // uv = polarMod(uv, 6.);
 
