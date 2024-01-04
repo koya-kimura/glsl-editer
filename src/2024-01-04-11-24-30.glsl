@@ -40,11 +40,12 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord)
 {
     vec2 uv=fragCoord/iResolution.xy;
 
-    uv = xy2pol((uv-.5)*2.);
+    uv=xy2pol((uv-.5)*2.);
 
-    uv.y -= iTime/5.;
+    uv.x *= 10.;
+    uv.y-=iTime;
 
-    vec4 col=texture2D(iChannel0,uv);
+    vec4 col=vec4(texture2D(iChannel0, uv).rgb*vec3(((step(fract(uv.y*cos(uv.x)),.8)+.5)*random(uv))+.1),1.);
 
     fragColor=col;
 }

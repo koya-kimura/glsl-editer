@@ -34,17 +34,14 @@ float easeInOutSine(float x){
 
 // -------------------------
 
-#iChannel0"../assets/image/night-meat.png"
+#iChannel0"https://66.media.tumblr.com/tumblr_mcmeonhR1e1ridypxo1_500.jpg"
+#iChannel1"https://1.bp.blogspot.com/-7OzCCLysaWY/VCOJTY7fF5I/AAAAAAAAmvY/HqoY2F8aEqA/s800/eto_mark05_tatsu.png"
 
 void mainImage(out vec4 fragColor,in vec2 fragCoord)
 {
     vec2 uv=fragCoord/iResolution.xy;
 
-    uv = xy2pol((uv-.5)*2.);
+    vec3 col=.5+.5*cos(iTime+uv.xyx+vec3(0,2,4));
 
-    uv.y -= iTime/5.;
-
-    vec4 col=texture2D(iChannel0,uv);
-
-    fragColor=col;
+    fragColor=vec4(col,1.);
 }
