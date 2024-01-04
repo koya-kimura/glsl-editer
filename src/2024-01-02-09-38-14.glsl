@@ -150,10 +150,10 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord)
 
     // uv = distortion(uv);
 
-    // uv = polarMod(uv, 6.);
+    uv = polarMod(uv, 6.);
 
     vec4 col=texture2D(iChannel0,uv);
-    // col.rgb = edge(col.rgb);
+    col.rgb = edge(col.rgb);
 
     fragColor= col;
 }
