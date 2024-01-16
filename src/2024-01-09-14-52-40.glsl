@@ -40,16 +40,8 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord)
 {
     vec2 uv=fragCoord/iResolution.xy;
 
-    for(float i=0.;i<30.;++i){
-        if(random(vec2(i,i+.1))<uv.x&&uv.x<random(vec2(i,i+.1))+random(vec2(i,i+.2))*.6&&random(vec2(i,i+.3))<uv.y&&uv.y<random(vec2(i,i+.3))+random(vec2(i,i+.4))*.6){
-            uv.x-=((mod(i,2.)*2.)-1.)*.02*step(fract(iTime),.8);
-            uv.y-=((mod(i,2.)*2.)-1.)*.02*step(fract(iTime+.1), .8);
-        }
-    }
-
-    vec4 col=texture(iChannel0,uv);
-
-    col.rgb += vec3(random(uv)*.2);
+    vec4 col = texture(iChannel0, uv);
+    col.rgb = floor(col.rgb*2.+.3)/2.;
 
     fragColor=col;
 }

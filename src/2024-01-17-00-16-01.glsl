@@ -36,20 +36,23 @@ float easeInOutSine(float x){
 
 #iChannel0"../assets/image/night-shibuya.png"
 
+vec3 colors[5];
+
 void mainImage(out vec4 fragColor,in vec2 fragCoord)
 {
+    colors[0]=vec3(1.,.71,.72);// #FFB4B8
+    colors[1]=vec3(.94,.29,.16);// #EF4B28
+    colors[2]=vec3(.04,.34,.23);// #0A563A
+    colors[3]=vec3(1.,.74,.33);// #FFBC54
+    colors[4]=vec3(.93,.91,.88);// #ECE9E0
+
     vec2 uv=fragCoord/iResolution.xy;
 
-    for(float i=0.;i<30.;++i){
-        if(random(vec2(i,i+.1))<uv.x&&uv.x<random(vec2(i,i+.1))+random(vec2(i,i+.2))*.6&&random(vec2(i,i+.3))<uv.y&&uv.y<random(vec2(i,i+.3))+random(vec2(i,i+.4))*.6){
-            uv.x-=((mod(i,2.)*2.)-1.)*.02*step(fract(iTime),.8);
-            uv.y-=((mod(i,2.)*2.)-1.)*.02*step(fract(iTime+.1), .8);
-        }
-    }
+    vec4 c = texture2D(iChannel0, uv);
 
-    vec4 col=texture(iChannel0,uv);
+    float gray = (c.r+c.g+c.b)/3. + sin(iTime/10.)*.2;
 
-    col.rgb += vec3(random(uv)*.2);
+    vec3 col = colors[int(floor(gray*5.))];
 
-    fragColor=col;
+    fragColor=vec4(col, 1.);
 }
