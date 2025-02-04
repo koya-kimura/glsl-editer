@@ -1,4 +1,4 @@
-## glsl editer
+## glsl editor
 
 きむらこうやのglslのローカルエディターです.
 
